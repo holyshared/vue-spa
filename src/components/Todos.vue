@@ -1,9 +1,7 @@
 <template>
+  <p v-if="completed">completed</p>
   <ul>
-    <li v-for="item in items" :key="item.id">
-      <span>{{ item.title }}</span>
-      <input type="checkbox" v-bind:checked="item.done" v-on:change="toggleDone(item)" />
-    </li>
+    <Todo v-for="item in items" :key="item.id" :title="item.title" v-model:checked="item.done" />
   </ul>
 </template>
 
@@ -17,6 +15,8 @@ ul {
 </style>
 
 <script lang="ts">
+import Todo from './Todo.vue';
+
 export default {
   name: 'Todos',
   data: () => {
@@ -40,12 +40,13 @@ export default {
       ]
     };
   },
-  methods: {
-    toggleDone(todo) {
-      todo.done ? false : true;
-
-      console.log(this.items);
+  computed: {
+    completed() {
+      return this.items.every(item => item.done);
     }
+  },
+  components: {
+    Todo,
   }
 }
 </script>
