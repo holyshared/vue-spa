@@ -1,5 +1,6 @@
 <template>
   <p v-if="completed">completed</p>
+  <NewTodo defalutTitle="next todo" :onAddTodo="addTodo" />
   <ul>
     <Todo v-for="item in items" :key="item.id" :title="item.title" v-model:checked="item.done" />
   </ul>
@@ -16,6 +17,7 @@ ul {
 
 <script lang="ts">
 import Todo from './Todo.vue';
+import NewTodo from './NewTodo.vue';
 
 export default {
   name: 'Todos',
@@ -45,8 +47,18 @@ export default {
       return this.items.every(item => item.done);
     }
   },
+  methods: {
+    addTodo(title) {
+      this.items.push({
+        id: (new Date().getTime()),
+        title,
+        done: false
+      });
+    }
+  },
   components: {
     Todo,
+    NewTodo
   }
 }
 </script>
