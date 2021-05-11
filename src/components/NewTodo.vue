@@ -37,7 +37,8 @@ export default {
   methods: {
     async onSubmit(values) {
       this.onAddTodo(values.title);
-      this.$refs.newTodo.resetForm({ values: { title: '' } });
+      this.values.title = '';
+      this.$refs.newTodo.resetForm();
     }
   },
   components: {
