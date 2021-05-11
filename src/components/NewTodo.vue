@@ -1,9 +1,14 @@
 <template>
-  <Form :initial-values="values">
-    <Field type="text" name="title" :rules="isRequired" v-model="values.title" />
-    <ErrorMessage name="title" />
+  <Form :initial-values="values" :validation-schema="schema" @submit="onSubmit" ref="newTodo">
+    <div>
+      <Field type="text"
+        name="title"
+        v-model="values.title"
+        :validateOnChange="false" />
+      <ErrorMessage name="title" />
+    </div>
+    <input type="submit" value="Add todo" />
   </Form>
-  <input type="button" value="Add todo" @click="handleAddTodo" />
 </template>
 
 <style scoped>
@@ -11,6 +16,7 @@
 
 <script lang="ts">
 import { Field, Form, ErrorMessage } from 'vee-validate';
+import * as yup from 'yup';
 
 export default {
   name: 'NewTodo',
@@ -20,21 +26,18 @@ export default {
   },
   data: (state) => {
     return {
+      schema: yup.object({
+        title: yup.string().required(),
+      }),
       values: {
         title: state.defalutTitle
       }
     };
   },
   methods: {
-    isRequired(value) {
-      if (value && value.trim()) {
-        return true;
-      }
-      return 'This is required';
-    },
-    handleAddTodo() {
-      this.onAddTodo(this.values.title);
-      this.values.title = '';
+    async onSubmit(values) {
+      this.onAddTodo(values.title);
+      this.$refs.newTodo.resetForm({ values: { title: '' } });
     }
   },
   components: {
