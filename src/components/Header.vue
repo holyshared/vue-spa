@@ -25,25 +25,27 @@ button {
 </style>
 
 <script lang="ts">
+import { Options, Vue } from 'vue-class-component';
 import Menus from './Menus.vue';
 
-export default {
-  name: 'Header',
+@Options({
   props: {
     title: String
   },
-  data: () => {
+  components: {
+    Menus
+  }
+})
+export default class Header extends Vue {
+  opened!: boolean;
+
+  toggleMenu() {
+    this.opened = this.opened ? false : true;
+  }
+  data() {
     return {
       opened: false
     };
-  },
-  methods: {
-    toggleMenu() {
-      this.opened = this.opened ? false : true;
-    }
-  },
-  components: {
-    Menus
   }
 }
 </script>

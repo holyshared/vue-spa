@@ -15,36 +15,44 @@
 </style>
 
 <script lang="ts">
+import { Options, Vue } from 'vue-class-component';
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
 
-export default {
-  name: 'NewTodo',
+type AddTodoHandler = (title: string) => void;
+
+@Options({
   props: {
     defalutTitle: String,
     onAddTodo: Function
-  },
-  data: (state) => {
-    return {
-      schema: yup.object({
-        title: yup.string().required(),
-      }),
-      values: {
-        title: state.defalutTitle
-      }
-    };
-  },
-  methods: {
-    async onSubmit(values) {
-      this.onAddTodo(values.title);
-      this.values.title = '';
-      this.$refs.newTodo.resetForm();
-    }
   },
   components: {
     Field,
     Form,
     ErrorMessage
+  }
+})
+export default class NewTodo extends Vue {
+  defalutTitle: string = '';
+  onAddTodo!: AddTodoHandler;
+  values: { title: string } = { title: '' };
+  $refs!: { newTodo: { resetForm: () => void; } };
+
+  data() {
+    return {
+      schema: yup.object({
+        title: yup.string().required(),
+      }),
+      values: {
+        title: this.defalutTitle
+      }
+    };
+  }
+
+  onSubmit(values: { title: string }) {
+    this.onAddTodo(values.title);
+    this.values.title = '';
+    this.$refs.newTodo.resetForm();
   }
 }
 </script>

@@ -10,12 +10,17 @@
 </template>
 
 <script lang="ts">
-export default {
-  name: 'Todo',
+import { Options, Vue } from 'vue-class-component';
+
+@Options({
   emits: ['update:checked'],
   props: {
     title: String,
     checked: Boolean
   }
+})
+export default class Todo extends Vue {
+  title: string = '';
+  checked: boolean = false;
 }
 </script>

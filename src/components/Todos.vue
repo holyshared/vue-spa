@@ -16,12 +16,20 @@ ul {
 </style>
 
 <script lang="ts">
+import { Options, Vue } from 'vue-class-component';
 import Todo from './Todo.vue';
 import NewTodo from './NewTodo.vue';
 
-export default {
-  name: 'Todos',
-  data: () => {
+@Options({
+  components: {
+    Todo,
+    NewTodo
+  }
+})
+export default class Todos extends Vue {
+  items!: { id: number; title: string; done: boolean; }[];
+
+  data() {
     return {
       items: [
         {
@@ -41,24 +49,16 @@ export default {
         },
       ]
     };
-  },
-  computed: {
-    completed() {
-      return this.items.every(item => item.done);
-    }
-  },
-  methods: {
-    addTodo(title) {
-      this.items.push({
-        id: (new Date().getTime()),
-        title,
-        done: false
-      });
-    }
-  },
-  components: {
-    Todo,
-    NewTodo
+  }
+  get completed() {
+    return this.items.every(item => item.done);
+  }
+  addTodo(title: string) {
+    this.items.push({
+      id: (new Date().getTime()),
+      title,
+      done: false
+    });
   }
 }
 </script>

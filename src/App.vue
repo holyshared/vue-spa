@@ -4,15 +4,17 @@
 </template>
 
 <script lang="ts">
+import { Options, Vue } from 'vue-class-component';
 import Header from './components/Header.vue';
 import Todos from './components/Todos.vue';
 
-export default {
-  name: 'App',
+@Options({
   components: {
     Header,
     Todos
   }
+})
+export default class App extends Vue {
 }
 </script>
 
