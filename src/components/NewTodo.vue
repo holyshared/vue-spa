@@ -16,10 +16,14 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import { Field, Form, ErrorMessage } from 'vee-validate';
+import { Field, Form, ErrorMessage, FormState, FormActions } from 'vee-validate';
 import * as yup from 'yup';
 
 type AddTodoHandler = (title: string) => void;
+
+interface TodoValues extends Record<string, any> {
+  title: string;
+}
 
 @Options({
   props: {
@@ -35,8 +39,8 @@ type AddTodoHandler = (title: string) => void;
 export default class NewTodo extends Vue {
   defalutTitle: string = '';
   onAddTodo!: AddTodoHandler;
-  values: { title: string } = { title: '' };
-  $refs!: { newTodo: { resetForm: () => void; } };
+  values: TodoValues= { title: '' };
+  $refs!: { newTodo: FormActions<TodoValues> };
 
   data() {
     return {
