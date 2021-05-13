@@ -3,6 +3,7 @@
   <Todos />
   <div class="forms">
     <PostForm />
+    <SearchForm />
   </div>
 </template>
 
@@ -11,12 +12,14 @@ import { Options, Vue } from 'vue-class-component';
 import Header from './components/headers/Header.vue';
 import Todos from './components/todos/Todos.vue';
 import PostForm from './components/posts/PostForm.vue';
+import SearchForm from './components/posts/SearchForm.vue';
 
 @Options({
   components: {
     Header,
     Todos,
-    PostForm
+    PostForm,
+    SearchForm
   }
 })
 export default class App extends Vue {
@@ -36,6 +39,6 @@ body {
 }
 .forms {
   display: grid;
-  grid-template-columns: 200px 200px 200px;
+  grid-template-columns: 220px 220px 220px;
 }
 </style>
