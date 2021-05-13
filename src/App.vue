@@ -5,8 +5,8 @@
 
 <script lang="ts">
 import { Options, Vue } from 'vue-class-component';
-import Header from './components/Header.vue';
-import Todos from './components/Todos.vue';
+import Header from './components/headers/Header.vue';
+import Todos from './components/todos/Todos.vue';
 
 @Options({
   components: {
