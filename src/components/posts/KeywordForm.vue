@@ -1,7 +1,8 @@
 <template>
   <div class="keywordsForm">
     <Form @submit="submit">
-      <Field name="keywords" v-model="values.keywords" />
+      <Field name="keywords" v-model="keywords" />
+      <ErrorMessage name="keywords" />
       <input type="submit" value="find" />
     </Form>
   </div>
@@ -15,15 +16,14 @@
 </style>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { ref } from 'vue';
 import { Field, Form, ErrorMessage } from 'vee-validate';
-import * as yup from 'yup';
 
 export interface KeywordFormValues extends Record<string, any> {
   keywords: string;
 }
 
-@Options({
+export default {
   props: {
     submit: Function
   },
@@ -31,17 +31,12 @@ export interface KeywordFormValues extends Record<string, any> {
     Form,
     Field,
     ErrorMessage
-  }
-})
-export default class KeywordForm extends Vue {
-  submit!: (values: KeywordFormValues) => void;
-
-  data() {
+  },
+  setup() {
+    const keywords = ref('');
     return {
-      values: {
-        keywords: ''
-      }
+      keywords: keywords.value,
     };
   }
-}
+};
 </script>

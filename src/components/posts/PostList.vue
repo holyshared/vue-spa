@@ -29,18 +29,17 @@
 </style>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { computed } from 'vue';
 
-@Options({
+export default {
   props: {
     items: Array
+  },
+  setup(props: {  items: { title: string; content: string; }[] }) {
+    const isEmpty = computed(() => props.items.length <= 0);
+    return {
+      isEmpty
+    };
   }
-})
-export default class PostList extends Vue {
-  items!: { title: string; content: string; }[];
-
-  get isEmpty()  {
-    return this.items.length <= 0;
-  }
-}
+};
 </script>

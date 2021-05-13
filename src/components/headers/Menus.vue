@@ -44,16 +44,10 @@ ul {
 </style>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-
-@Options({
+export default {
   props: {
     opened: Boolean,
-    onClick: Function
+    onClick: Function,
   }
-})
-export default class Menus extends Vue {
-  opened: boolean = false;
-  onClick!: () => void;
-}
+};
 </script>
