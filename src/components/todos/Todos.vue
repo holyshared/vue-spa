@@ -18,49 +18,49 @@ ul {
 </style>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { ref, computed } from 'vue';
 import Todo from './Todo.vue';
 import NewTodo from './NewTodo.vue';
 
-@Options({
+export default {
   components: {
     Todo,
     NewTodo
-  }
-})
-export default class Todos extends Vue {
-  items!: { id: number; title: string; done: boolean; }[];
+  },
+  setup() {
+    const items = ref([
+      {
+        id: 1,
+        title: 'todo1',
+        done: false
+      },
+      {
+        id: 2,
+        title: 'todo2',
+        done: true
+      },
+      {
+        id: 3,
+        title: 'todo3',
+        done: false
+      },
+    ]);
+    const completed = computed(() => {
+      return items.value.every(item => item.done);
+    });
+    const addTodo = (title: string) => {
+      items.value.push({
+        id: (new Date().getTime()),
+        title,
+        done: false
+      });
+    };
 
-  data() {
     return {
-      items: [
-        {
-          id: 1,
-          title: 'todo1',
-          done: false
-        },
-        {
-          id: 2,
-          title: 'todo2',
-          done: true
-        },
-        {
-          id: 3,
-          title: 'todo3',
-          done: false
-        },
-      ]
+      items,
+      completed,
+      addTodo
     };
   }
-  get completed() {
-    return this.items.every(item => item.done);
-  }
-  addTodo(title: string) {
-    this.items.push({
-      id: (new Date().getTime()),
-      title,
-      done: false
-    });
-  }
-}
+};
 </script>
