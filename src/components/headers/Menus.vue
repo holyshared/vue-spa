@@ -3,6 +3,7 @@
     <h2>Menus</h2>
     <ul>
       <li><RouterLink to="/">Home</RouterLink></li>
+      <li><RouterLink to="/@demo">Profile</RouterLink></li>
       <li><RouterLink to="/about">About</RouterLink></li>
     </ul>
     <button type="button" @click="onClick">close</button>
@@ -40,6 +41,9 @@ ul {
   list-style: none;
   display: flex;
   flex-direction: column;
+}
+a {
+  color: #fff;
 }
 </style>
 
