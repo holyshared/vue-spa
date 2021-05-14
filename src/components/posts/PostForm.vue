@@ -41,7 +41,6 @@ fieldset {
 </style>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
 import { Field, Form, ErrorMessage } from 'vee-validate';
 import * as yup from 'yup';
 
@@ -50,28 +49,30 @@ interface PostValues extends Record<string, any> {
   content: string;
 }
 
-@Options({
+export default {
   components: {
     Form,
     Field,
     ErrorMessage
-  }
-})
-export default class PostForm extends Vue {
-  data() {
+  },
+
+  setup() {
+    const schema = yup.object({
+      title: yup.string().required(),
+      content: yup.string().required(),
+    });
+    const values = {
+      title: '',
+      content: '',
+    };
+    const onSubmit = (v: PostValues) => {
+      console.log(v);
+    };
     return {
-      schema: yup.object({
-        title: yup.string().required(),
-        content: yup.string().required(),
-      }),
-      values: {
-        title: '',
-        content: '',
-      }
+      schema,
+      values,
+      onSubmit
     };
   }
-  onSubmit(v: PostValues) {
-    console.log(v);
-  }
-}
+};
 </script>

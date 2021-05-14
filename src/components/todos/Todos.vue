@@ -1,9 +1,11 @@
 <template>
-  <p v-if="completed">completed</p>
-  <NewTodo defalutTitle="next todo" :onAddTodo="addTodo" />
-  <ul>
-    <Todo v-for="item in items" :key="item.id" :title="item.title" v-model:checked="item.done" />
-  </ul>
+  <div class="todos">
+    <p v-if="completed">completed</p>
+    <NewTodo defalutTitle="next todo" :onAddTodo="addTodo" />
+    <ul>
+      <Todo v-for="item in items" :key="item.id" :title="item.title" v-model:checked="item.done" />
+    </ul>
+  </div>
 </template>
 
 <style scoped>

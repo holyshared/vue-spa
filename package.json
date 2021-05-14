@@ -12,6 +12,7 @@
     "vee-validate": "^4.3.6",
     "vue": "^3.0.0",
     "vue-class-component": "^8.0.0-0",
+    "vue-router": "4",
     "yup": "^0.32.9"
   },
   "devDependencies": {
@@ -42,7 +43,7 @@
       "parser": "@typescript-eslint/parser"
     },
     "rules": {
-      "no-unused-vars": "off"      
+      "no-unused-vars": "off"
     }
   },
   "browserslist": [

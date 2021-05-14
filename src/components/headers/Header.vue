@@ -1,5 +1,5 @@
 <template>
-  <Menus v-bind:opened="opened" @click="toggleMenu" />
+  <Menus :opened="opened" @click="toggleMenu" />
   <header>
     <h1>{{title}}</h1>
     <button type="button" @click="toggleMenu">Menu</button>

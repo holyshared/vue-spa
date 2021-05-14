@@ -2,8 +2,8 @@
   <aside v-if="opened">
     <h2>Menus</h2>
     <ul>
-      <li>menu1</li>
-      <li>menu2</li>
+      <li><RouterLink to="/">Home</RouterLink></li>
+      <li><RouterLink to="/about">About</RouterLink></li>
     </ul>
     <button type="button" @click="onClick">close</button>
   </aside>
@@ -44,7 +44,11 @@ ul {
 </style>
 
 <script lang="ts">
+import { RouterLink } from 'vue-router';
 export default {
+  components: {
+    RouterLink
+  },
   props: {
     opened: Boolean,
     onClick: Function,

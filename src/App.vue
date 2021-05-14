@@ -1,34 +1,30 @@
 <template>
-  <Header title="Todos" />
-  <Todos />
-  <div class="forms">
-    <PostForm />
-    <SearchForm />
-  </div>
+  <article>
+    <Header title="Example" />
+    <div class="container">
+      <RouterView />
+    </div>
+  </article>
 </template>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
+import { RouterView } from 'vue-router';
 import Header from './components/headers/Header.vue';
-import Todos from './components/todos/Todos.vue';
-import PostForm from './components/posts/PostForm.vue';
-import SearchForm from './components/posts/SearchForm.vue';
 
-@Options({
+export default {
   components: {
     Header,
-    Todos,
-    PostForm,
-    SearchForm
+    RouterView
   }
-})
-export default class App extends Vue {
 }
 </script>
 
 <style>
 body {
   margin: 0;
+}
+.container {
+  margin: 20px 20px 0 20px;
 }
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;

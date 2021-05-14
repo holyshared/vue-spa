@@ -1,22 +1,18 @@
 <template>
-  <Form :initial-values="values" :validation-schema="schema" @submit="onSubmit" ref="newTodo">
+  <form @submit="onSubmit">
     <div>
-      <Field type="text"
-        name="title"
-        v-model="values.title"
-        :validateOnChange="false" />
+      <Field type="text" name="title" :validateOnChange="false" />
       <ErrorMessage name="title" />
     </div>
     <input type="submit" value="Add todo" />
-  </Form>
+  </form>
 </template>
 
 <style scoped>
 </style>
 
 <script lang="ts">
-import { Options, Vue } from 'vue-class-component';
-import { Field, Form, ErrorMessage, FormState, FormActions } from 'vee-validate';
+import { Field, Form, ErrorMessage, FormState, FormActions, useForm } from 'vee-validate';
 import * as yup from 'yup';
 
 type AddTodoHandler = (title: string) => void;
@@ -25,38 +21,31 @@ interface TodoValues extends Record<string, any> {
   title: string;
 }
 
-@Options({
+export default {
+  components: {
+    Field,
+    ErrorMessage
+  },
   props: {
     defalutTitle: String,
     onAddTodo: Function
   },
-  components: {
-    Field,
-    Form,
-    ErrorMessage
-  }
-})
-export default class NewTodo extends Vue {
-  defalutTitle: string = '';
-  onAddTodo!: AddTodoHandler;
-  values: TodoValues= { title: '' };
-  $refs!: { newTodo: FormActions<TodoValues> };
-
-  data() {
-    return {
-      schema: yup.object({
+  setup(props: { defalutTitle: string, onAddTodo: AddTodoHandler }) {
+    const { resetForm, handleSubmit } = useForm<{ title: string }>({
+      validationSchema: yup.object({
         title: yup.string().required(),
       }),
-      values: {
-        title: this.defalutTitle
-      }
+      initialValues: {
+        title: props.defalutTitle
+      },
+    });
+    const onSubmit = handleSubmit(values => {
+      props.onAddTodo(values.title);
+      resetForm({ values: { title: '' } });
+    });
+    return {
+      onSubmit
     };
   }
-
-  onSubmit(values: { title: string }) {
-    this.onAddTodo(values.title);
-    this.values.title = '';
-    this.$refs.newTodo.resetForm();
-  }
-}
+};
 </script>
